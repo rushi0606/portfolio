@@ -1,14 +1,14 @@
 import React from 'react'
-import Overlay from './components/Overlay'
+import ParallaxScroll from './components/Overlay'
 import Navbar from './components/Navbar'
 import Header from './components/Header'
 
 const page = () => {
   return (
-    <div>
+    <div className=' '>
       <Navbar/>
-      <div className="absolute top-0 -z-10">
-      <Overlay/>
+      <div className="absolute left-0 top-0 -z-10">
+      <ParallaxScroll/>
       </div>
       <Header/>
     </div>
