@@ -1,5 +1,4 @@
 import React from 'react'
-import ParallaxScroll from './components/Overlay'
 import Navbar from './components/Navbar'
 import Header from './components/Header'
 
@@ -8,7 +7,6 @@ const page = () => {
     <div className=' '>
       <Navbar/>
       <div className="absolute left-0 top-0 -z-10">
-      <ParallaxScroll/>
       </div>
       <Header/>
     </div>

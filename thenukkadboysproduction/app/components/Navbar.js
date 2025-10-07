@@ -23,8 +23,13 @@ const Navbar = () => {
   return (
     <>
       {/* Top Navbar (scrolls with page) */}
-      <div ref={navbarRef} className="w-full z-50">
-        <nav className="flex justify-between items-center px-6 pt-10 pb-4 pr-12 bg-transparent text-[15px]">
+      <div
+        ref={navbarRef}
+        className={`w-full z-50 transition-opacity duration-500 ${
+          menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+      >
+        <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-6 pt-10 pb-4 pr-12 bg-transparent text-[15px]">
           <div>
             <Image
               src="/logo.png"
