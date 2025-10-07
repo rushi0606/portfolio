@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import Image from "next/image";
+import logo from "@/public/images/logo.png";
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
   const links = [
@@ -20,11 +21,11 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
 
   useEffect(() => {
     if (menuOpen) {
-      document.body.style.overflow = "hidden"; // disable scroll
+      document.body.style.overflow = "hidden";
       const timer = setTimeout(() => setAnimate(true), 50);
       return () => clearTimeout(timer);
     } else {
-      document.body.style.overflow = "auto"; // enable scroll
+      document.body.style.overflow = "auto";
       setAnimate(false);
     }
   }, [menuOpen]);
@@ -33,37 +34,36 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-60 bg-[#111111] flex flex-row h-screen overflow-hidden px-12 pt-12 transition-transform duration-700 ease-in-out ${
+      className={`fixed inset-0 z-60 bg-[#111111] flex flex-row h-screen overflow-hidden px-12 pt-10 transition-transform duration-700 ease-in-out ${
         animate ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      {/* First Div: Logo and Close Button */}
-      <div className="flex flex-col items-start w-[60%] mb-12">
-        {/* Logo */}
-        <div className="mb-12">
+      {/* Close Button (top-right corner) */}
+      <button
+        onClick={() => setMenuOpen(false)}
+        className="absolute top-10 right-12 flex items-center gap-1 text-white cursor-pointer text-lg font-medium capitalize hover:text-gray-300 transition-colors duration-300"
+      >
+        <span className="text-[17px] pt-2">Close</span>
+        <X className="w-7 h-7 pt-2" />
+      </button>
+
+      {/* Left Section — Logo same as Navbar */}
+      <div className="flex flex-col justify-start items-start w-[60%]">
+        <div className="">
           <Image
-            src="/logo.png"
+            src={logo}
             alt="Logo"
-            width={120}
-            height={40}
+            width={70}
+            height={30}
             className="object-contain"
           />
         </div>
-
-        {/* Close Button */}
-        <button
-          onClick={() => setMenuOpen(false)}
-          className="absolute top-8 right-8 flex items-center gap-2 text-white cursor-pointer text-lg font-medium capitalize hover:text-gray-300 transition-colors duration-300"
-        >
-          <X className="w-8 h-8" />
-          Close
-        </button>
       </div>
 
-      {/* Second Div: Menu, Socials, Our Story */}
+      {/* Right Section — Menu Links */}
       <div className="flex flex-col items-start w-[40%] space-y-10 md:space-y-8">
         {/* Menu Links */}
-        <nav className="flex flex-col items-start text-3xl md:text-5xl capitalize w-full pt-[130px]">
+        <nav className="flex flex-col items-start text-3xl md:text-5xl capitalize w-full pt-[120px]">
           {links.map((link) => (
             <a
               key={link.name}
@@ -78,14 +78,14 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
         </nav>
 
         {/* Social Buttons */}
-        <div className="flex flex-col items-start space-y-3 md:space-y-3 mt-6 w-full">
+        <div className="flex flex-col items-start space-y-3 mt-6 w-full">
           {socialLinks.map((social) => (
             <a
               key={social.name}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative group   text-xl md:text-[15px] font-medium capitalize text-gray-400 text-left transition-colors duration-300 hover:text-white leading-none"
+              className="relative group text-[15px] font-medium capitalize text-gray-400 transition-colors duration-300 hover:text-white leading-none"
             >
               <span className="relative">{social.name}</span>
               <span className="absolute bottom-0 left-0 h-[2px] bg-white w-0 group-hover:w-full transition-all duration-300"></span>
@@ -93,11 +93,11 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
           ))}
         </div>
 
-        {/* Our Story Button styled like links */}
+        {/* Our Story Link */}
         <a
           href="#ourstory"
           onClick={() => setMenuOpen(false)}
-          className="relative group py-2 text-[15px] md:text-[15px] font-medium capitalize text-gray-400 text-left transition-colors duration-300 hover:text-white leading-tight pt-16"
+          className="relative group py-2 text-[15px] font-medium capitalize text-gray-400 transition-colors duration-300 hover:text-white leading-tight pt-16"
         >
           <span className="relative">Our story</span>
           <span className="absolute bottom-0 left-0 h-[2px] bg-white w-0 group-hover:w-full transition-all duration-300"></span>

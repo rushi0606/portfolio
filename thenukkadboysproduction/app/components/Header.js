@@ -14,13 +14,13 @@ const Header = () => {
   });
 
   // Text moves faster
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -500]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -600]);
 
   // Background moves slower (half speed)
   const bgY = useTransform(scrollYProgress, [0, 1], [0, -150]);
 
   return (
-    <div ref={overlayRef} className="relative h-[250vh] w-screen">
+    <div ref={overlayRef} className="relative h-380 w-screen overflow-hidden">
       {/* Background Image (moves slower) */}
       <motion.div
         style={{ y: bgY }}
@@ -29,25 +29,23 @@ const Header = () => {
         <Image
           src={BgImage}
           alt="Background"
-          fill
-          style={{ objectFit: "cover" }}
-          priority
+        
         />
       </motion.div>
 
       {/* Animated Text (moves faster) */}
       <motion.div
         style={{ y: textY }}
-        className="relative z-10 flex flex-col h-screen pt-32 px-10"
+        className="relative h-screen pt-32 px-10"
       >
-        <p className="w-2xl pl-35 pt-[500px] text-[24px]">
+        <p className="w-2xl pl-35 pt-[400px] text-[24px]">
           Global digital design studio partnering with brands and businesses that
           create exceptional experiences where people live, work, and unwind.
         </p>
-        <h1 className="text-[300px] leading-[250px] w-2xl pl-30 pt-25">
+        <h1 className="text-[250px] leading-[250px] w-2xl pl-30 pt-25">
           Building Digital Presence
         </h1>
-        <p className="w-2xl pl-35 pt-25 text-[24px] pb-30">
+        <p className="w-2xl pl-35 pt-25 text-[24px]">
           We help experience-driven companies thrive by making their audience feel
           the refined intricacies of their brand and product in the digital space.
           Unforgettable journeys start with a click.

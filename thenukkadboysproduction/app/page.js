@@ -1,16 +1,19 @@
-import React from 'react'
-import Navbar from './components/Navbar'
-import Header from './components/Header'
+import React from "react";
+import Navbar from "./components/Navbar";
+import Header from "./components/Header";
+import Highlight from "./components/Highlights";
 
-const page = () => {
+const Page = () => {
   return (
-    <div className=' '>
-      <Navbar/>
-      <div className="absolute left-0 top-0 -z-10">
-      </div>
-      <Header/>
+    <div className="overflow-x-hidden scroll-smooth">
+      <Navbar />
+      
+      <Header />
+     
+      <Highlight/>
+       
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default Page;
