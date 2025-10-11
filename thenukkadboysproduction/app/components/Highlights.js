@@ -6,9 +6,9 @@ const Highlight = () => {
     <div className="flex flex-col md:flex-row w-full h-[150vh] bg-white ">
       {/* Right Division (first visually, 55%) */}
       <div className="w-full md:w-[56%] h-[50vh] md:h-screen bg-white flex items-center justify-center order-1 md:order-1">
-        <h2 className="text-3xl md:text-5xl font-medium text-black">
-          <h1 className="pb-[170px] text-[200px] pl-9">Work</h1>
-        </h2>
+        <h1 className="text-3xl md:text-5xl font-medium text-black">
+          <h2 className="pb-[170px] text-[200px] pl-9">Work</h2>
+        </h1>
       </div>
 
       {/* Left Division (second, 45%) */}
