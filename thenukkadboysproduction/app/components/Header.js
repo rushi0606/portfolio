@@ -20,11 +20,11 @@ const Header = () => {
   const bgY = useTransform(scrollYProgress, [0, 1], [0, -150]);
 
   return (
-    <div ref={overlayRef} className="relative h-380 w-screen overflow-hidden">
+    <div ref={overlayRef} className="relative h-370 w-screen overflow-hidden">
       {/* Background Image (moves slower) */}
       <motion.div
         style={{ y: bgY }}
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 -z-10 "
       >
         <Image
           src={BgImage}
@@ -38,7 +38,7 @@ const Header = () => {
         style={{ y: textY }}
         className="relative h-screen pt-32 px-10"
       >
-        <p className="w-2xl pl-35 pt-[400px] text-[24px]">
+        <p className="w-2xl pl-35 pt-[370px] text-[24px]">
           Global digital design studio partnering with brands and businesses that
           create exceptional experiences where people live, work, and unwind.
         </p>

@@ -8,7 +8,7 @@ import logo from "@/public/images/logo.png";
 const Navbar = () => {
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [menuBlack, setMenuBlack] = useState(false); // menu color state
+  const [isOnWhiteSection, setIsOnWhiteSection] = useState(false); // track highlight visibility
   const navbarRef = useRef(null);
 
   useEffect(() => {
@@ -16,19 +16,24 @@ const Navbar = () => {
       const navbarHeight = navbarRef.current?.offsetHeight || 0;
       setShowMenuButton(window.scrollY > navbarHeight);
 
-      // Change menu color after scrolling 380px
-      setMenuBlack(window.scrollY >= 380);
+      // Detect highlight section
+      const highlightSection = document.getElementById("highlight");
+      if (highlightSection) {
+        const rect = highlightSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const isVisible = rect.top < windowHeight / 1.5 && rect.bottom > 0;
+        setIsOnWhiteSection(isVisible);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  
-
   return (
     <>
-      {/* Main Navbar */}
+      {/* Navbar */}
       <div
         ref={navbarRef}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 ease-out ${
@@ -38,7 +43,6 @@ const Navbar = () => {
         }`}
       >
         <nav className="flex justify-between items-center px-6 pt-10 pb-4 pr-12 bg-transparent text-[15px]">
-          {/* Logo */}
           <div>
             <Image
               src={logo}
@@ -67,7 +71,12 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setMenuOpen(true)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-white backdrop-blur-sm hover:scale-105`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointe
+                ${
+                  isOnWhiteSection
+                    ? "bg-black text-white"
+                    : "bg-white text-black"
+                }`}
             >
               <span className="text-sm font-medium tracking-wide">Menu</span>
               <MenuIcon className="w-6 h-6" />
@@ -83,7 +92,7 @@ const Navbar = () => {
             ? "opacity 1s ease-in 0.3s, transform 1s ease-in 0.3s"
             : "opacity 0.2s ease-out, transform 0.2s ease-out",
         }}
-        className={`fixed top-10 right-12 z-50 ${
+        className={`fixed top-12 right-7 z-50 ${
           showMenuButton && !menuOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-[-10px] pointer-events-none"
@@ -91,10 +100,10 @@ const Navbar = () => {
       >
         <button
           onClick={() => setMenuOpen(true)}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-white backdrop-blur-sm hover:scale-105`}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer`}
         >
-          <span className="text-sm font-medium tracking-wide text-black">Menu</span>
-          <MenuIcon className="w-5 h-5 text-black" />
+          <span className="text-sm font-medium tracking-wide">Menu</span>
+          <MenuIcon className="w-4 h-4" />
         </button>
       </div>
 

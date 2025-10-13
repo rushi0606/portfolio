@@ -18,19 +18,34 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
   ];
 
   const [animate, setAnimate] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    let timer;
+
     if (menuOpen) {
+      // Show menu immediately
+      setVisible(true);
+      // Prevent scroll immediately when menu opens
       document.body.style.overflow = "hidden";
-      const timer = setTimeout(() => setAnimate(true), 50);
-      return () => clearTimeout(timer);
+
+      // Small delay to start enter animation
+      timer = setTimeout(() => setAnimate(true), 50);
     } else {
-      document.body.style.overflow = "auto";
+      // Trigger exit animation
       setAnimate(false);
+
+      // Keep scroll locked until animation fully ends
+      timer = setTimeout(() => {
+        setVisible(false);
+        document.body.style.overflow = "auto";
+      }, 700); // same duration as animation
     }
+
+    return () => clearTimeout(timer);
   }, [menuOpen]);
 
-  if (!menuOpen) return null;
+  if (!visible) return null;
 
   return (
     <div
@@ -38,7 +53,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
         animate ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      {/* Close Button (top-right corner) */}
+      {/* Close Button */}
       <button
         onClick={() => setMenuOpen(false)}
         className="absolute top-10 right-12 flex items-center gap-1 text-white cursor-pointer text-lg font-medium capitalize hover:text-gray-300 transition-colors duration-300"
@@ -47,9 +62,9 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
         <X className="w-7 h-7 pt-2" />
       </button>
 
-      {/* Left Section — Logo same as Navbar */}
+      {/* Left Section (Logo) */}
       <div className="flex flex-col justify-start items-start w-[60%]">
-        <div className="">
+        <div>
           <Image
             src={logo}
             alt="Logo"
@@ -62,7 +77,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
 
       {/* Right Section — Menu Links */}
       <div className="flex flex-col items-start w-[40%] space-y-10 md:space-y-8">
-        {/* Menu Links */}
+        {/* Main Links */}
         <nav className="flex flex-col items-start text-3xl md:text-5xl capitalize w-full pt-[120px]">
           {links.map((link) => (
             <a
@@ -77,7 +92,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
           ))}
         </nav>
 
-        {/* Social Buttons */}
+        {/* Social Links */}
         <div className="flex flex-col items-start space-y-3 mt-6 w-full">
           {socialLinks.map((social) => (
             <a
@@ -93,7 +108,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
           ))}
         </div>
 
-        {/* Our Story Link */}
+        {/* Our Story */}
         <a
           href="#ourstory"
           onClick={() => setMenuOpen(false)}
