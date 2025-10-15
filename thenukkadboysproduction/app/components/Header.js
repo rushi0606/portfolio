@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import BgImage from "@/public/images/image1.jpg";
+import BgImage from "@/public/images/image2.jpg";
 
 const Header = () => {
   const overlayRef = useRef(null);
