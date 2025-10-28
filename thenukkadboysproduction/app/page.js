@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import Highlight from "./components/Highlights";
 
+
 const Page = () => {
   return (
     <div className="overflow-x-hidden scroll-smooth">
@@ -11,6 +12,7 @@ const Page = () => {
       <Header />
      
       <Highlight/>
+  
        
     </div>
   );

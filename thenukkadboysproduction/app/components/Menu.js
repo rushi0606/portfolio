@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
-import { X } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { X, Play } from "lucide-react";
 import Image from "next/image";
 import logo from "@/public/images/logo.png";
+import reelImage from "@/public/images/Bansuriwala_collectives.jpg";
 
 const Menu = ({ menuOpen, setMenuOpen }) => {
   const links = [
@@ -19,7 +20,6 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
 
   const [animate, setAnimate] = useState(false);
   const [visible, setVisible] = useState(false);
-  const videoRef = useRef(null);
 
   useEffect(() => {
     let timer;
@@ -39,16 +39,9 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
 
   if (!visible) return null;
 
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
-
   return (
     <div
-      className={`fixed inset-0 z-60  bg-black bg-grey-900 flex flex-row h-screen overflow-hidden px-12 pt-10 transition-transform duration-700 ease-in-out ${
+      className={`fixed inset-0 z-60 bg-[#0d0e13] flex flex-row h-screen overflow-hidden px-12 pt-10 transition-transform duration-700 ease-in-out ${
         animate ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -62,9 +55,9 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
       </button>
 
       {/* Left Section */}
-      <div className="flex flex-col justify-between items-start w-[60%] relative">
+      <div className="relative flex pl-60 pt-26 w-[60%]">
         {/* Logo */}
-        <div className="absolute top-0 left-1">
+        <div className="absolute top-1 left-0">
           <Image
             src={logo}
             alt="Logo"
@@ -74,23 +67,30 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
           />
         </div>
 
-        {/* Video Section */}
-        <div className=" flex justify-center overflow-hidden pt-20 h-160 pl-70 hover:scale-101 opacity-70">
-          <video
-            ref={videoRef}
-            className="w-full h-full cursor-pointer transform transition-all duration-500 ease-in-out "
-            src="/videos/video1.mp4"
-            muted
-            loop
-            playsInline
-            onMouseEnter={() => videoRef.current?.play()}
-            onMouseLeave={handleMouseLeave}
-          ></video>
+        {/* Image Container */}
+        <div className="relative w-[400px] h-[450px] flex">
+          <Image
+            src={reelImage}
+            alt="Reel Preview"
+            fill
+            className=" object-cover opacity-70"
+          />
         </div>
+        {/* Play Button (bottom-left corner of image) */}
+        <button
+          onClick={() => (window.location.href = "/reel")}
+          className="absolute bottom-7 left-6 group flex items-center gap-2 text-gray-300 text-sm uppercase tracking-wide transition-all duration-300 py-2 hover:text-white"
+        >
+          <Play className="w-4 h-4" />
+          <span className="relative">
+            Play Reel
+            <span className="absolute -bottom-[2px] left-0 h-[2px] bg-white w-0 group-hover:w-full transition-all duration-300"></span>
+          </span>
+        </button>
       </div>
 
       {/* Right Section */}
-      <div className="flex flex-col items-start justify-center w-[40%] space-y-10 md:space-y-8 pt-5">
+      <div className="flex flex-col items-start justify-center w-[40%] space-y-15 md:space-y-8 pt-18">
         {/* Main Links */}
         <nav className="flex flex-col items-start text-3xl md:text-5xl capitalize w-full">
           {links.map((link) => (
@@ -107,7 +107,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
         </nav>
 
         {/* Social Links */}
-        <div className="flex flex-col items-start space-y-3.5 mt-6 w-full pt-6">
+        <div className="flex flex-col items-start space-y-3.5 mt-6 w-full pt-25">
           {socialLinks.map((social) => (
             <a
               key={social.name}
@@ -117,20 +117,25 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
               className="relative group text-[15px] font-medium capitalize text-gray-400 transition-colors duration-300 hover:text-white leading-none"
             >
               <span className="relative">{social.name}</span>
-              <span className="absolute bottom-0 left-0 h-[2px] bg-white w-0 group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute bottom-[-4] left-0 h-[2px] bg-white w-0 group-hover:w-full transition-all duration-300"></span>
             </a>
           ))}
         </div>
 
         {/* Our Story */}
-        <a
-          href="#ourstory"
-          onClick={() => setMenuOpen(false)}
-          className="relative group py-2 text-[15px] font-medium capitalize text-gray-400 transition-colors duration-300 hover:text-white leading-tight pt-33"
-        >
-          <span className="relative">Our story</span>
-          <span className="absolute bottom-0 left-0 h-[2px] bg-white w-0 group-hover:w-full transition-all duration-300"></span>
-        </a>
+        <div className="w-full flex justify-end pt-14 pr-4">
+          <a
+            href="#ourstory"
+            onClick={() => setMenuOpen(false)}
+            className="relative group py-3 text-[15px] font-medium capitalize text-gray-400 transition-colors duration-300 hover:text-white leading-tight"
+          >
+            <span className="relative">
+              Our story
+              {/* Underline */}
+              <span className="absolute -bottom-[5px] right-0 h-[2px] bg-white w-0 group-hover:w-full transition-all duration-300"></span>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   );
