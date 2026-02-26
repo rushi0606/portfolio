@@ -1,56 +1,40 @@
 "use client";
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React from "react";
 import Image from "next/image";
-import BgImage from "@/public/images/image2.jpg";
+import BgImage from "@/public/images/headingphoto.png";
 
 const Header = () => {
-  const overlayRef = useRef(null);
-
-  // Track scroll progress
-  const { scrollYProgress } = useScroll({
-    target: overlayRef,
-    offset: ["start start", "end end"],
-  });
-
-  // Text moves faster
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -600]);
-
-  // Background moves slower (half speed)
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, -150]);
-
   return (
-    <div ref={overlayRef} className="relative h-370 w-screen overflow-hidden">
-      {/* Background Image (moves slower) */}
-      <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-0 -z-10 "
-      >
-        <Image
-          src={BgImage}
-          alt="Background"
-        
-        />
-      </motion.div>
+    <div className="relative w-screen h-screen overflow-hidden">
+      {/* Background Image */}
+      <Image
+        src={BgImage}
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-cover -z-10 opacity-55"
+      />
 
-      {/* Animated Text (moves faster) */}
-      <motion.div
-        style={{ y: textY }}
-        className="relative h-screen pt-32 px-10"
-      >
-        <p className="w-2xl pl-35 pt-[370px] text-[24px]">
-          Global digital design studio partnering with brands and businesses that
-          create exceptional experiences where people live, work, and unwind.
+      {/* Centered Text */}
+      <div className="relative w-full h-full flex flex-col justify-center items-start px-20">
+        {/* Tagline */}
+        <p className="text-[25px] max-w-3xl pt-30 text-white mb-15">
+          We are a team of passionate friends dedicated to capturing life’s 
+          most precious moments with creativity, precision, and heart.
         </p>
-        <h1 className="text-[250px] leading-[250px] w-2xl pl-30 pt-25">
-          Building Digital Presence
+
+        {/* Main Heading / Hero Statement */}
+        <h1
+          className="text-[70px] leading-[80px] font-extrabold mb-15"
+        >
+          Crafting Memories Through Vision
         </h1>
-        <p className="w-2xl pl-35 pt-25 text-[24px]">
-          We help experience-driven companies thrive by making their audience feel
-          the refined intricacies of their brand and product in the digital space.
-          Unforgettable journeys start with a click.
+
+        {/* Subtext */}
+        <p className="text-[25px] max-w-3xl text-white">
+          From cinematic visuals, we tell your story 
+          with a personal touch, creating timeless experiences that inspire 
+          and resonate.
         </p>
-      </motion.div>
+      </div>
     </div>
   );
 };
